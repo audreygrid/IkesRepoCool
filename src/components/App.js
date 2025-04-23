@@ -5,28 +5,26 @@ import TaskList from "./TaskList";
 
 import { CATEGORIES, TASKS } from "../data";
 
-
 function App() {
   const [tasks, setTasks] = useState(TASKS);
-    const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  function handleDeleteTask(deletedTask) {
-    const updatedTasks = tasks.filter(task => task.text !== deletedTask.text);
-    setTasks(updatedTasks);
-  }
+  const handleDelete = (textToDelete) => {
+    setTasks(tasks.filter((task) => task.text !== textToDelete));
+  };
 
-    function handleCategoryChange(category) {
-      setSelectedCategory(category);
-    }
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
-    function handleTaskFormSubmit(newTask) {
-      setTasks([...tasks, newTask]);
-    }
+  const handleTaskFormSubmit = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
 
-    const visibleTasks =
-      selectedCategory === "All"
-        ? tasks
-        : tasks.filter((task) => task.category === selectedCategory);
+  const visibleTasks =
+    selectedCategory === "All"
+      ? tasks
+      : tasks.filter((task) => task.category === selectedCategory);
 
   return (
     <div className="App">
@@ -40,7 +38,7 @@ function App() {
         categories={CATEGORIES}
         onTaskFormSubmit={handleTaskFormSubmit}
       />
-      <TaskList tasks={visibleTasks} onDeleteTask={handleDeleteTask} />
+      <TaskList tasks={visibleTasks} onDeleteTask={handleDelete} />
     </div>
   );
 }
